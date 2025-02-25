@@ -114,126 +114,127 @@ yarn build
 
 - **Класс Product**
 
-    **Описание**: Хранит информацию о товаре.
+  **Описание**: Хранит информацию о товаре.
 
-    **Свойства**:
+  **Свойства**:
 
-    - id: string — уникальный идентификатор товара;
-    - description: string — описание товара;
-    - image: string — ссылка на изображение;
-    - title: string — название товара;
-    - category: Category — категория товара;
-    - price: number | null — цена товара (может быть null, если товар бесплатный).
+  - id: string — уникальный идентификатор товара;
+  - description: string — описание товара;
+  - image: string — ссылка на изображение;
+  - title: string — название товара;
+  - category: Category — категория товара;
+  - price: number | null — цена товара (может быть null, если товар бесплатный).
 
 - **Класс User**
 
-    **Описание**: Хранит информацию о пользователе.
+  **Описание**: Хранит информацию о пользователе.
 
-    **Свойства**:
-    - payment: PaymentType — способ оплаты;
-    - address: string — адрес доставки;
-    - email: string — почта пользователя;
-    - phone: string — телефон пользователя.
+  **Свойства**:
+  - payment: PaymentType — способ оплаты;
+  - address: string — адрес доставки;
+  - email: string — почта пользователя;
+  - phone: string — телефон пользователя.
 
-    **Методы**:
-    - setPayment(payment: PaymentType): void — устанавливает способ оплаты;
-    - setAddress(address: string): void — устанавливает адрес доставки;
-    - setEmail(email: string): void — устанавливает почту;
-    - setPhone(phone: string): void — устанавливает телефон.
+  **Методы**:
+  - setPayment(payment: PaymentType): void — устанавливает способ оплаты;
+  - setAddress(address: string): void — устанавливает адрес доставки;
+  - setEmail(email: string): void — устанавливает почту;
+  - setPhone(phone: string): void — устанавливает телефон.
 
 - **Класс Cart**
 
-    **Описание**: Управляет корзиной пользователя.
+  **Описание**: Управляет корзиной пользователя.
 
-    **Свойства**:
-    items: Product[] — список товаров в корзине.
+  **Свойства**:
+  items: Product[] — список товаров в корзине.
 
-    **Методы**:
-    - add(product: Product): void — добавляет товар в корзину;
-    - remove(id: string): void — удаляет товар из корзины;
-    - getTotal(): number — возвращает общую стоимость товаров в корзине.
+  **Методы**:
+  - add(product: Product): void — добавляет товар в корзину;
+  - remove(id: string): void — удаляет товар из корзины;
+  - getTotal(): number — возвращает общую стоимость товаров в корзине.
 
 - **Класс Api**
 
-    **Описание**: Обеспечивает взаимодействие с сервером через HTTP-запросы.
+  **Описание**: Обеспечивает взаимодействие с сервером через HTTP-запросы.
 
-    **Методы**:
+  **Методы**:
 
-    - get(uri: string): Promise<object> — выполняет GET-запрос;
-    - post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise<object> — выполняет POST-, PUT- или DELETE-запрос.
+  - get(uri: string): Promise`<object>` — выполняет GET-запрос;
+  - post(uri: string, data: object, method: ApiPostMethods = 'POST'): Promise`<object>` — выполняет POST-, PUT- или DELETE-запрос.
+
 
 ### Представление (View)
 Основные компоненты:
 
 - **Класс ModalView**
     
-    **Описание**: Управляет отображением и поведением модальных окон.
+  **Описание**: Управляет отображением и поведением модальных окон.
 
-    **Методы**:
-    - onOpen(callback: () => void): void — отображает модальное окно;
-    - onClose(callback: () => void): void — закрывает модальное окно.
+  **Методы**:
+  - onOpen(callback: () => void): void — отображает модальное окно;
+  - onClose(callback: () => void): void — закрывает модальное окно.
 
 - **Класс CatalogView**
     
-    **Описание**: Отображает каталог товаров.
+  **Описание**: Отображает каталог товаров.
 
-    **Методы**:
-    - render(products: Product[]): void — отображает список товаров;
-    - onProductClick(callback: (id: string) => void): void — обрабатывает клик по товару;
-    - onGoToCart(callback: () => void): void — обрабатывает переход к модальному окну корзины.
+  **Методы**:
+  - render(products: Product[]): void — отображает список товаров;
+  - onProductClick(callback: (id: string) => void): void — обрабатывает клик по товару;
+  - onGoToCart(callback: () => void): void — обрабатывает переход к модальному окну корзины.
 
 - **Класс ProductModalView**
     
-    **Описание**: Отображает модальное окно с детальной информацией о товаре.
+  **Описание**: Отображает модальное окно с детальной информацией о товаре.
 
-    **Методы**:
-    - render(product: Product): void — отображает информацию о товаре;
-    - onAddToCart(callback: () => void): void — обрабатывает добавление товара в корзину.
+  **Методы**:
+  - render(product: Product): void — отображает информацию о товаре;
+  - onAddToCart(callback: () => void): void — обрабатывает добавление товара в корзину.
 
 - **Класс CartView**
     
-    **Описание**: Отображает корзину пользователя.
+  **Описание**: Отображает корзину пользователя.
 
-    **Методы**:
+  **Методы**:
 
-    - render(items: Product[]): void — отображает список товаров в корзине;
-    - renderTotal(total: number): void - отображает стоимость товаров в корзине;
-    - onRemoveItem(callback: (id: string) => void): void — обрабатывает удаление товара из корзины;
-    - onCheckout(callback: () => void): void — обрабатывает переход к оформлению заказа.
+  - render(items: Product[]): void — отображает список товаров в корзине;
+  - renderTotal(total: number): void - отображает стоимость товаров в корзине;
+  - onRemoveItem(callback: (id: string) => void): void — обрабатывает удаление товара из корзины;
+  - onCheckout(callback: () => void): void — обрабатывает переход к оформлению заказа.
 
 - Класс **OrderFormView**
 
-    **Описание**: Отображает форму оформления заказа.
+  **Описание**: Отображает форму оформления заказа.
 
-    **Методы**:
-    - render(): void — отображает форму;
-    - onNextStep(callback: () => void): void — обрабатывает переход к следующему шагу.
+  **Методы**:
+  - render(): void — отображает форму;
+  - onNextStep(callback: () => void): void — обрабатывает переход к следующему шагу.
 
 - Класс **ContactFormView**
     
-    **Описание**: Отображает форму ввода контактных данных.
+  **Описание**: Отображает форму ввода контактных данных.
 
-    **Методы**:
-    - render(): void — отображает форму;
-    - onSubmit(callback: () => void): void — обрабатывает отправку формы.
+  **Методы**:
+  - render(): void — отображает форму;
+  - onSubmit(callback: () => void): void — обрабатывает отправку формы.
 
 - **Класс SuccessModalView**
 
-    **Описание**: Отображает модальное окно с сообщением об успешной покупке.
+  **Описание**: Отображает модальное окно с сообщением об успешной покупке.
 
-    **Методы**:
-    - render(total: number): void — отображает модальное окно с сообщением об успешной покупке;
-    - onContinueShopping(callback: () => void): void — обрабатывает клик по кнопке "За новыми покупками!".
+  **Методы**:
+  - render(total: number): void — отображает модальное окно с сообщением об успешной покупке;
+  - onContinueShopping(callback: () => void): void — обрабатывает клик по кнопке "За новыми покупками!".
 
 ### Брокер событий (Presenter)
 - Класс EventEmitter
 
-    **Описание**: Реализует паттерн «Наблюдатель» и обеспечивает работу событий. Позволяет подписываться на события, отписываться от них и уведомлять подписчиков о наступлении событий.
+  **Описание**: Реализует паттерн «Наблюдатель» и обеспечивает работу событий. Позволяет подписываться на события, отписываться от них и уведомлять подписчиков о наступлении событий.
 
-    **Методы**:
-    - on<T extends object>(eventName: EventName, callback: (data: T) => void): void — подписывает на событие;
-    - off(eventName: EventName, callback: Subscriber): void — отписывает от события;
-    - emit<T extends object>(eventName: string, data?: T): void — уведомляет подписчиков о наступлении события;
-    - onAll(callback: (event: EmitterEvent) => void): void — подписывает на все события;
-    - offAll(): void — сбрасывает все подписки;
-    - trigger<T extends object>(eventName: string, context?: Partial<T>): (data: T) => void — создаёт триггер, который генерирует событие при вызове.
+  **Методы**:
+  - on<T extends object>(eventName: EventName, callback: (data: T) => void): void — подписывает на событие;
+  - off(eventName: EventName, callback: Subscriber): void — отписывает от события;
+  - emit<T extends object>(eventName: string, data?: T): void — уведомляет подписчиков о наступлении события;
+  - onAll(callback: (event: EmitterEvent) => void): void — подписывает на все события;
+  - offAll(): void — сбрасывает все подписки;
+  - trigger<T extends object>(eventName: string, context?: Partial<T>): (data: T) => void — создаёт триггер, который генерирует событие при вызове.
