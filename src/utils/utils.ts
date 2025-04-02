@@ -44,9 +44,16 @@ export function ensureElement<T extends HTMLElement>(selectorElement: SelectorEl
     throw new Error('Unknown selector element');
 }
 
-export function cloneTemplate<T extends HTMLElement>(query: string | HTMLTemplateElement): T {
-    const template = ensureElement(query) as HTMLTemplateElement;
-    return template.content.firstElementChild.cloneNode(true) as T;
+export function cloneTemplate(query: string | HTMLTemplateElement): HTMLElement {
+    const template = typeof query === 'string' 
+        ? ensureElement<HTMLTemplateElement>(query)
+        : query;
+    
+    if (!template.content || !template.content.firstElementChild) {
+        throw new Error(`Шаблон ${typeof query === 'string' ? query : ''} пустой или невалидный`);
+    }
+    
+    return template.content.firstElementChild.cloneNode(true) as HTMLElement;
 }
 
 export function bem(block: string, element?: string, modifier?: string): { name: string, class: string } {

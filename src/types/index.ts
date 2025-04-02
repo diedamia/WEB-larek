@@ -1,6 +1,6 @@
-type Category = 'софт-скил' | 'другое' | 'дополнительное' | 'кнопка' | 'хард-скил';
+export type Category = 'софт-скил' | 'другое' | 'дополнительное' | 'кнопка' | 'хард-скил';
 
-interface Product {
+export interface IProduct {
   id: string;
   description: string;
   image: string;
@@ -9,71 +9,101 @@ interface Product {
   price: number | null;
 }
 
-type PaymentType = 'card' | 'cash';
+export type PaymentType = 'online' | 'cash';
 
-interface User {
+export interface IUser {
   payment: PaymentType;
   address: string;
   email: string;
   phone: string;
 }
 
-interface Cart {
-    items: Product[];
-    add(product: Product): void;
+export interface IOrder extends IUser {
+  items: string[];
+  total: number;
+}
+
+export interface IOrderResult {
+  id: string;
+  total: number;
+}
+
+export type FormErrors = Partial<Record<keyof IUser, string>>;
+
+export interface IBasketModel {
+    items: IProduct[];
+    add(item: IProduct): void;
     remove(id: string): void;
-    getTotal(): number;
-  }
-
-interface ModalView {
-  onOpen(callback: () => void): void;
-  onClose(callback: () => void): void;
+    total: number;
+    clear(): void;
+    getCount(): number;
+    contains(id: string): boolean;
 }
 
-interface CatalogView {
-    render(products: Product[]): void;
-    onProductClick(callback: (id: string) => void): void;
-    onGoToCart(callback: () => void): void;
+export interface IFormModel {
+    setField<K extends keyof IUser>(field: K, value: IUser[K]): void;
+    validate(): boolean;
+    getOrderData(): IOrder;
 }
 
-interface ProductModalView {
-    render(product: Product): void;
-    onAddToCart(callback: () => void): void;
+export interface IApiModel {
+    getProducts(): Promise<IProduct[]>;
+    createOrder(order: IOrder): Promise<IOrderResult>;
 }
 
-interface CartView {
-    render(items: Product[]): void;
-    renderTotal(total: number): void;
-    onRemoveItem(callback: (id: string) => void): void;
-    onCheckout(callback: () => void): void;
+export interface ICatalogModel {
+  productCards: IProduct[];
+  selectedCard: IProduct | null;
+  showCard(item: IProduct): void;
 }
 
-interface OrderFormView {
-    render(): void;
-    onNextStep(callback: () => void): void;
+export interface ICardView {
+  render(data: IProduct): HTMLElement;
 }
 
-interface ContactFormView {
-    render(): void;
-    onSubmit(callback: () => void): void;
+export interface ICatalogView {
+  render(products: IProduct[]): void;
 }
 
-interface SuccessModalView {
-    render(total: number): void;
-    onContinueShopping(callback: () => void): void;
+export interface IModalView {
+  open(): void;
+  close(): void;
 }
 
-export {
-    Category,
-    PaymentType,
-    Product,
-    User,
-    Cart,
-    ModalView,
-    CatalogView,
-    ProductModalView,
-    CartView,
-    OrderFormView,
-    ContactFormView,
-    SuccessModalView,
-  };
+export interface IProductModalView {
+  render(product: IProduct): HTMLElement;
+  setButtonState(isInBasket: boolean): void;
+}
+
+export interface IBasketItemView {
+  render(data: IProduct, index: number): HTMLElement;
+}
+
+export interface IBasketView {
+  render(items: IProduct[], total: number): HTMLElement;
+  update(items: IProduct[], total: number): void;
+}
+
+export interface IOrderFormView {
+  payment: PaymentType | null;
+  address: string;
+  render(): HTMLElement;
+  validate(): void;
+}
+
+export interface IContactsFormView {
+  email: string;
+  phone: string;
+  render(): HTMLElement;
+  validate(): void;
+}
+
+export interface ISuccessModalView {
+  render(total: number): HTMLElement;
+}
+
+
+export type ApiListResponse<Type> = {
+  total: number;
+  items: Type[];
+};
